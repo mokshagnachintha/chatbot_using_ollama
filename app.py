@@ -9,33 +9,10 @@ import os
 from dotenv import load_dotenv
 import sys
 
-# If the user runs this file with `python app.py` Streamlit will warn repeatedly
-# because there's no ScriptRunContext. Detect that case early and exit with a
-# helpful message. When run with `streamlit run app.py` the ScriptRunContext
-# will be present and the app continues as normal.
-try:
-    # streamlit 1.12+ provides this helper
-    from streamlit.runtime.scriptrunner import get_script_run_ctx
-except Exception:
-    # older/newer streamlit or import failure — treat as no context available
-    def get_script_run_ctx():
-        return None
-
-# Load environment variables from .env file
-# Load .env into environment first
+ first
 load_dotenv()
 
-# If executed directly with `python app.py`, there's no Streamlit run context
-# and the app will produce many "missing ScriptRunContext" warnings. Exit
-# early with instructions so the user can run the app correctly.
-if __name__ == "__main__":
-    try:
-        ctx = get_script_run_ctx()
-    except Exception:
-        ctx = None
-    if ctx is None:
-        print("This application must be started with Streamlit. Run:\n  streamlit run app.py")
-        sys.exit(0)
+
 
 # Prefer either LANGCHAIN_API_KEY or lang_chain_api_key in .env; avoid assigning None
 _api_key = os.getenv('lang_chain_api_key') or os.getenv('LANGCHAIN_API_KEY')
